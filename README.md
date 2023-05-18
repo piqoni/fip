@@ -1,3 +1,7 @@
+<p align="center">
+<img width=200 src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/FIP_logo_2021.svg/1920px-FIP_logo_2021.svg.png">
+</p>
+
 # fip
 
 Fip is a command-line interface that fetches data from FIP Radio and provides information about the currently playing track, next track, and previous track.
@@ -35,7 +39,7 @@ Usage of fip:
 ```
 
 ## Ideas on how to use it
-One potential usage is to create an alias that will append the currently playing track to a FIP bookmarks file. So whenever you hear a great track on FIP, you just write fav on terminal:
+One potential usage is to create an alias that will append the currently playing track to a music bookmarks file. So whenever you hear a great track on FIP, you just write **fav** on terminal, and the track will be appended to your file:
 
 `alias fav='fip --spotify | tee -a "/Users/user/Library/Mobile Documents/iCloud~md~obsidian/Documents/FIP.md"'`
 
