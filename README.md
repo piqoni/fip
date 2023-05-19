@@ -14,7 +14,7 @@ Download the [corresponding binary](https://github.com/piqoni/fip/releases) base
 If you have installed the [Go programming](https://go.dev) you can also install it by running: 
 
 ```shell
-go install github.com/piqoni/fip
+go install github.com/piqoni/fip@latest
 ```
 This will install it in your GOPATH/bin. To see your GOPATH you can execute `go env GOPATH`
 
