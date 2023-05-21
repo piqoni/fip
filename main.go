@@ -30,7 +30,7 @@ func main() {
 	fipResponse := FipResponse{}
 
 	// Unmarshal the JSON response into the FipResponse struct
-	err = json.Unmarshal(responseBody, &fipResponse)
+	err = json.Unmarshal([]byte(responseBody), &fipResponse)
 	if err != nil {
 		// Handle error
 		fmt.Println("Error:", err)
@@ -44,15 +44,25 @@ func main() {
 
 	var spotifyLink string
 
-	if *spotify {
+	if *spotify && fipResponse.Data.Now.Song.ExternalLinks.Spotify.ID != "" {
 		spotifyLink = fipResponse.Data.Now.Song.ExternalLinks.Spotify.Link
 	} else {
 		spotifyLink = ""
 	}
 
-	nowPlaying := fipResponse.Data.Now.PlayingItem.Title + " - " + fipResponse.Data.Now.PlayingItem.Subtitle + " " + spotifyLink
-	nextPlaying := fipResponse.Data.NextTracks[0].Title + " - " + fipResponse.Data.NextTracks[0].Subtitle + " " + spotifyLink
-	prevPlaying := fipResponse.Data.PreviousTracks.Edges[0].Node.Title + " - " + fipResponse.Data.PreviousTracks.Edges[0].Node.Subtitle + " " + spotifyLink
+	prevPlaying, nextPlaying, nowPlaying := "", "", ""
+
+	if fipResponse.Data.Now.PlayingItem.Title != "" {
+		nowPlaying = fipResponse.Data.Now.PlayingItem.Title + " - " + fipResponse.Data.Now.PlayingItem.Subtitle + " " + spotifyLink
+	}
+
+	if len(fipResponse.Data.PreviousTracks.Edges) > 0 {
+		prevPlaying = fipResponse.Data.PreviousTracks.Edges[0].Node.Title + " - " + fipResponse.Data.PreviousTracks.Edges[0].Node.Subtitle + " " + spotifyLink
+	}
+
+	if len(fipResponse.Data.NextTracks) > 0 {
+		nextPlaying = fipResponse.Data.NextTracks[0].Title + " - " + fipResponse.Data.NextTracks[0].Subtitle + " " + spotifyLink
+	}
 
 	if *next {
 		fmt.Println(nextPlaying)
